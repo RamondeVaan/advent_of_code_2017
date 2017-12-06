@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Day4 {
-    public static long validPassphrasesNoDuplicates(List<String[]> passphrases) {
+    private static long validPassphrasesNoDuplicates(List<String[]> passphrases) {
         return passphrases.stream()
                 .map(l -> IntStream.range(0, l.length - 1)
                         .boxed()
@@ -23,7 +23,7 @@ public class Day4 {
                 .count();
     }
 
-    public static long validPassphrasesNoAnagrams(List<String[]> passphrases) {
+    private static long validPassphrasesNoAnagrams(List<String[]> passphrases) {
         return passphrases.stream()
                 .map(l -> IntStream.range(0, l.length - 1)
                         .boxed()
@@ -47,7 +47,12 @@ public class Day4 {
     }
 
     public static void main(String[] args) {
-        Path input = Paths.get("D:\\Projects\\adventofcode\\input\\Day4.txt");
+        if (args.length != 1) {
+            System.err.println("Program requires input folder as argument");
+            return;
+        }
+
+        Path input = Paths.get(args[0], "Day4.txt");
         try {
             List<String[]> values = Files.lines(input)
                     .map(s -> s.split("\\s+"))

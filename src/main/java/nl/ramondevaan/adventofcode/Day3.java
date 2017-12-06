@@ -1,5 +1,8 @@
 package nl.ramondevaan.adventofcode;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class Day3 {
@@ -49,7 +52,7 @@ public class Day3 {
         final int x;
         final int y;
 
-        public Coordinate(int x, int y) {
+        Coordinate(int x, int y) {
             this.x = x;
             this.y = y;
         }
@@ -59,11 +62,11 @@ public class Day3 {
             return String.format("[%d, %d]", x, y);
         }
 
-        public static int manhattanDistance(Coordinate c1, Coordinate c2) {
+        static int manhattanDistance(Coordinate c1, Coordinate c2) {
             return Math.abs(c1.x - c2.x) + Math.abs(c1.y - c2.y);
         }
 
-        public static List<Coordinate> neighbors(Coordinate c) {
+        static List<Coordinate> neighbors(Coordinate c) {
             return Arrays.asList(
                     new Coordinate(c.x - 1, c.y - 1),
                     new Coordinate(c.x - 1, c.y),
@@ -92,21 +95,21 @@ public class Day3 {
     }
 
     private static class Spiral {
-        private int stride;
-        private int curStep;
-        private Direction direction;
-        private boolean incStride;
-        private Coordinate nextCoord;
+        private int        stride;
+        private int        curStep;
+        private Direction  direction;
+        private boolean    incStride;
+        private Coordinate nextCoordinate;
 
         private Spiral() {
             stride = 1;
             curStep = 0;
             direction = Direction.RIGHT;
             incStride = false;
-            nextCoord = new Coordinate(0, 0);
+            nextCoordinate = new Coordinate(0, 0);
         }
 
-        public Coordinate addCoord() {
+        public Coordinate addCoordinate() {
             if(curStep == stride) {
                 if(incStride) {
                     stride++;
@@ -118,71 +121,87 @@ public class Day3 {
             }
 
             curStep++;
-            Coordinate temp = nextCoord;
-            nextCoord = direction.move(nextCoord);
+            Coordinate temp = nextCoordinate;
+            nextCoordinate = direction.move(nextCoordinate);
             return temp;
         }
     }
 
     private static class SaveSpiral extends Spiral {
-        public final Map<Coordinate, Integer> coords;
+        final Map<Coordinate, Integer> coordinates;
 
         private SaveSpiral() {
-            this.coords = new HashMap<>();
+            this.coordinates = new HashMap<>();
         }
 
         @Override
-        public Coordinate addCoord() {
-            return addCoord(0);
+        public Coordinate addCoordinate() {
+            return addCoordinate(0);
         }
 
-        public Coordinate addCoord(int value) {
-            Coordinate c = super.addCoord();
-            coords.put(c, value);
+        Coordinate addCoordinate(int value) {
+            Coordinate c = super.addCoordinate();
+            coordinates.put(c, value);
             return c;
         }
     }
 
-    public static int spiralDist(int n) {
+    private static int spiralDist(int n) {
         Spiral s = new Spiral();
         final Coordinate start = new Coordinate(0, 0);
 
-        Coordinate c = s.addCoord();
+        Coordinate c = s.addCoordinate();
 
         for(int i = 0; i < n - 1; i++) {
-            c = s.addCoord();
+            c = s.addCoordinate();
         }
 
         return Coordinate.manhattanDistance(start, c);
     }
 
-    public static int stressTest(int n) {
+    private static int stressTest(int n) {
         SaveSpiral s = new SaveSpiral();
 
         int curVal = 1;
-        Coordinate c = s.addCoord(curVal);
+        Coordinate c;
+        s.addCoordinate(curVal);
 
         while(curVal < n) {
-            c = s.addCoord();
+            c = s.addCoordinate();
 
             curVal = 0;
 
             for(Coordinate p : Coordinate.neighbors(c)) {
-                Integer val = s.coords.get(p);
+                Integer val = s.coordinates.get(p);
 
                 if(val != null) {
                     curVal += val;
                 }
             }
 
-            s.coords.put(c, curVal);
+            s.coordinates.put(c, curVal);
         }
 
         return curVal;
     }
 
     public static void main(String[] args) {
-        System.out.printf("Exercise 1: %d%n", spiralDist(265149));
-        System.out.printf("Exercise 2: %d%n", stressTest(265149));
+        if (args.length != 1) {
+            System.err.println("Program requires input folder as argument");
+            return;
+        }
+
+        Path input = Paths.get(args[0], "Day3.txt");
+        try {
+            int value = Files.lines(input)
+                    .mapToInt(Integer::parseInt)
+                    .findFirst()
+                    .orElse(1);
+
+            System.out.printf("Exercise 1: %d%n", spiralDist(value));
+            System.out.printf("Exercise 2: %d%n", stressTest(value));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

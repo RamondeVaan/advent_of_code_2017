@@ -7,7 +7,7 @@ group 'nl.ramondevaan.adventofcode'
 version '1.0'
 
 sourceCompatibility = 1.8
-mainClassName = 'nl.ramondevaan.adventofcode.Day5'
+mainClassName = 'nl.ramondevaan.adventofcode.Day6'
 
 repositories {
     mavenCentral()
@@ -15,4 +15,8 @@ repositories {
 
 dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+}
+
+run {
+    args findProperty('runArgs')
 }

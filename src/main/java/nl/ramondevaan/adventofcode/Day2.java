@@ -2,26 +2,23 @@ package nl.ramondevaan.adventofcode;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Day2 {
-    private static int checksum(List<List<Integer>> input) throws IOException {
+    private static int checksum(List<List<Integer>> input) {
         return input.stream()
                 .map(i -> i.stream().collect(Collectors.summarizingInt(Integer::intValue)))
                 .mapToInt(s -> s.getMax() - s.getMin())
                 .sum();
     }
 
-    private static int divisibleChecksum(List<List<Integer>> input) throws IOException {
+    private static int divisibleChecksum(List<List<Integer>> input) {
         return input.stream()
                 .mapToInt(l -> IntStream.range(0, l.size() - 1)
                         .boxed()
@@ -37,7 +34,12 @@ public class Day2 {
     }
 
     public static void main(String[] args) {
-        Path input = Paths.get("D:\\Projects\\adventofcode\\input\\Day2.txt");
+        if (args.length != 1) {
+            System.err.println("Program requires input folder as argument");
+            return;
+        }
+
+        Path input = Paths.get(args[0], "Day2.txt");
         try {
             List<List<Integer>> values = Files.lines(input).map(s -> s.split("\\s+"))
                     .map(s -> Arrays.stream(s)

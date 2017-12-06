@@ -4,7 +4,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,13 +15,13 @@ public class Day5 {
     private static class ListWalker {
         private Incrementer   incrementer;
 
-        public ListWalker(Incrementer incrementer) {
+        ListWalker(Incrementer incrementer) {
             this.incrementer = incrementer;
         }
 
-        public int walk(List<Integer> values) {
+        int walk(List<Integer> values) {
             int cur   = 0;
-            int next  = 0;
+            int next;
             int count = 0;
 
             while (cur >= 0 && cur < values.size()) {
@@ -49,7 +48,12 @@ public class Day5 {
     }
 
     public static void main(String[] args) {
-        Path input = Paths.get("D:\\Projects\\adventofcode\\input\\Day5.txt");
+        if (args.length != 1) {
+            System.err.println("Program requires input folder as argument");
+            return;
+        }
+
+        Path input = Paths.get(args[0], "Day5.txt");
         try {
             List<Integer> values = Files.lines(input)
                     .map(Integer::parseInt)
