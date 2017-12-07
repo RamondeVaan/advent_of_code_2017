@@ -7,7 +7,7 @@ group 'nl.ramondevaan.adventofcode'
 version '1.0'
 
 sourceCompatibility = 1.8
-mainClassName = 'nl.ramondevaan.adventofcode.Day6'
+mainClassName = 'nl.ramondevaan.adventofcode.Day7'
 
 repositories {
     mavenCentral()
