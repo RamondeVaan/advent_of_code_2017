@@ -1,5 +1,6 @@
-package nl.ramondevaan.adventofcode.day1;
+package nl.ramondevaan.adventofcode.day7;
 
+import nl.ramondevaan.adventofcode.day6.Day6;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,28 +9,29 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 
-public class Day1Test {
-    private Day1 day1;
+public class Day7Test {
+    private Day7 day7;
 
     @Before
     public void setUp() throws URISyntaxException, IOException {
-        if(day1 != null) {
+        if(day7 != null) {
             return;
         }
 
-        day1 = Day1.create(
+        day7 = Day7.create(
                 Paths.get(this.getClass().getResource(
-                        "/Day1.txt"
+                        "/Day7.txt"
                 ).toURI()));
     }
 
     @Test
     public void exercise1() {
-        Assert.assertEquals(1049, day1.sumIfPairs(1));
+        Assert.assertEquals("hmvwl", day7.rootName());
     }
 
     @Test
     public void exercise2() {
-        Assert.assertEquals(1508, day1.sumIfPairs(day1.getValues().size() / 2));
+        System.out.println(day7.unbalanced());
+//        Assert.assertEquals(1086, day7.cycleSize());
     }
 }

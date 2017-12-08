@@ -1,6 +1,5 @@
 package nl.ramondevaan.adventofcode.day2;
 
-import nl.ramondevaan.adventofcode.day1.Day1;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

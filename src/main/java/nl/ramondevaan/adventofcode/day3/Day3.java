@@ -3,7 +3,6 @@ package nl.ramondevaan.adventofcode.day3;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class Day3 {
     private final int value;
@@ -32,7 +31,6 @@ public class Day3 {
 
         while (s.hasNext() && v <= value) {
             v = s.next().getRight();
-            System.out.println(v);
         }
 
         return v;

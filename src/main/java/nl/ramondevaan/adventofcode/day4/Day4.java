@@ -2,16 +2,27 @@ package nl.ramondevaan.adventofcode.day4;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Day4 {
-    private static long validPassphrasesNoDuplicates(List<String[]> passphrases) {
+    private final List<String[]> passphrases;
+
+    private Day4(List<String[]> passphrases) {
+        this.passphrases = passphrases == null ?
+                Collections.emptyList() :
+                Collections.unmodifiableList(new ArrayList<>(passphrases));
+    }
+
+    public long validPassphrasesNoDuplicates() {
         return passphrases.stream()
                 .map(l -> IntStream.range(0, l.length - 1)
                         .boxed()
@@ -23,7 +34,7 @@ public class Day4 {
                 .count();
     }
 
-    private static long validPassphrasesNoAnagrams(List<String[]> passphrases) {
+    public long validPassphrasesNoAnagrams() {
         return passphrases.stream()
                 .map(l -> IntStream.range(0, l.length - 1)
                         .boxed()
@@ -46,21 +57,22 @@ public class Day4 {
         return Arrays.equals(a, b);
     }
 
-    public static void main(String[] args) {
-        if (args.length != 1) {
-            System.err.println("Program requires input folder as argument");
-            return;
+    public static Day4 create(List<String[]> passphrases) {
+        List<String[]> temp = new ArrayList<>();
+
+        for (String[] passphrase : passphrases) {
+            temp.add(Arrays.copyOf(passphrase, passphrase.length));
         }
 
-        Path input = Paths.get(args[0], "Day4.txt");
-        try {
-            List<String[]> values = Files.lines(input)
-                    .map(s -> s.split("\\s+"))
-                    .collect(Collectors.toList());
-            System.out.printf("Exercise 1: %d%n", validPassphrasesNoDuplicates(values));
-            System.out.printf("Exercise 2: %d%n", validPassphrasesNoAnagrams(values));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        return new Day4(temp);
+    }
+
+    public static Day4 create(Path file) throws IOException {
+        return new Day4(
+                Files.lines(file)
+                        .map(s -> s.split("\\s+"))
+                        .collect(Collectors.toList())
+        );
+
     }
 }
