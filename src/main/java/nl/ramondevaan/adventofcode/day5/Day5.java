@@ -1,4 +1,4 @@
-package nl.ramondevaan.adventofcode;
+package nl.ramondevaan.adventofcode.day5;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

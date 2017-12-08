@@ -1,4 +1,4 @@
-package nl.ramondevaan.adventofcode;
+package nl.ramondevaan.adventofcode.day4;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
