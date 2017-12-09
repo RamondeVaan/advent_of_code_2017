@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Data
-@EqualsAndHashCode(exclude = {"parent", "children"})
+@EqualsAndHashCode(exclude = {"parent", "children", "siblings"})
 public class Program {
     private final String        name;
     private final int           weight;
@@ -20,10 +20,12 @@ public class Program {
     @Setter(value = AccessLevel.PRIVATE)
     private       Program       parent;
     private       List<Program> children;
+    private       List<Program> siblings;
 
     private Program(String name, int weight) {
         this.parent = null;
         this.children = Collections.emptyList();
+        this.siblings = Collections.emptyList();
         this.name = name;
         this.weight = weight;
         this.totalWeight = -1;
@@ -31,6 +33,12 @@ public class Program {
 
     private void setChildren(List<Program> programs) {
         this.children = programs == null ?
+                Collections.emptyList() :
+                Collections.unmodifiableList(new ArrayList<>(programs));
+    }
+
+    private void setSiblings(List<Program> programs) {
+        this.siblings = programs == null ?
                 Collections.emptyList() :
                 Collections.unmodifiableList(new ArrayList<>(programs));
     }
@@ -89,6 +97,11 @@ public class Program {
 
                 q.setChildren(children);
                 children.forEach(r -> r.setParent(q));
+                children.forEach(r -> {
+                    List<Program> siblings = new ArrayList<>(children);
+                    siblings.remove(r);
+                    r.setSiblings(siblings);
+                });
             });
 
             programMap.values().stream()

@@ -1,13 +1,12 @@
 package nl.ramondevaan.adventofcode.day7;
 
-import org.apache.commons.lang3.tuple.ImmutablePair;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 public class Day7 {
     private final static String  CHILDREN_TAG    = "children";
@@ -33,55 +32,30 @@ public class Day7 {
                 .orElse(null);
     }
 
-    public String unbalanced() {
+    public int unbalanced() {
         Program unbalanced = programs.stream()
-                .filter(p -> p.getChildren().size() > 0)
-                .map(p -> new ImmutablePair<>(p, p.getChildren()))
-                .map(p -> new ImmutablePair<>(
-                        p.getLeft(),
-                        p.getRight().stream().mapToInt(Program::getTotalWeight).distinct().count()
-                ))
-                .filter(p -> p.getRight() > 1)
-                .map(ImmutablePair::getLeft)
+                .filter(p -> p.getParent() != null)
+                .filter(p -> p.getSiblings().stream()
+                        .allMatch(q -> q.getTotalWeight() != p.getTotalWeight()))
+                .filter(p -> p.getChildren().stream()
+                        .map(Program::getTotalWeight)
+                        .distinct()
+                        .count() < 2)
                 .findFirst()
                 .orElse(null);
 
-        programs.stream()
-                .filter(p -> p.getChildren().size() > 1)
-                .map(p -> {
-                    p.getChildren().stream()
-                            .
-                })
-
         if(unbalanced == null) {
-            return null;
+            return 0;
         }
 
+        int weightDiff = unbalanced.getTotalWeight() - Stream.of(unbalanced)
+                .flatMap(p -> p.getSiblings().stream())
+                .mapToInt(Program::getTotalWeight)
+                .findFirst()
+                .orElse(unbalanced.getTotalWeight());
 
+        return unbalanced.getWeight() - weightDiff;
     }
-
-//    public static void main(String[] args) {
-//        System.out.println("");
-//        if (args.length != 1) {
-//            System.err.println("Program requires input folder as argument");
-//            return;
-//        }
-//
-//        Path input = Paths.get(args[0], "day7.txt");
-//        try {
-////            Files.lines(input)
-////                    .map(s -> Arrays.stream(s.split("\\s+"))
-////                            .map(Integer::parseInt)
-////                            .collect(Collectors.toList()))
-////                    .findFirst()
-////                    .orElse(new ArrayList<>())
-//
-////            System.out.printf("Exercise 1: %d%n", exercise1(values));
-////            System.out.printf("Exercise 2: %d%n", exercise2(values));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     public static Day7 create(Path file) throws IOException {
         return new Day7(

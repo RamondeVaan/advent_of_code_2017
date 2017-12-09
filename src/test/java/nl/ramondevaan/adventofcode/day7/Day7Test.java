@@ -31,7 +31,6 @@ public class Day7Test {
 
     @Test
     public void exercise2() {
-        System.out.println(day7.unbalanced());
-//        Assert.assertEquals(1086, day7.cycleSize());
+        Assert.assertEquals(1853, day7.unbalanced());
     }
 }
