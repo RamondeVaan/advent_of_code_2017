@@ -32,6 +32,12 @@ public enum BinaryOperatorB {
         public boolean check(int k, int l) {
             return k == l;
         }
+    },
+    NOT_EQUAL("!=") {
+        @Override
+        public boolean check(int k, int l) {
+            return k != l;
+        }
     };
 
     private final String representation;

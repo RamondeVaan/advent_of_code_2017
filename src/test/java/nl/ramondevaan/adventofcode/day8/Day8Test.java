@@ -1,5 +1,6 @@
 package nl.ramondevaan.adventofcode.day8;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,11 +25,11 @@ public class Day8Test {
 
     @Test
     public void exercise1() {
-//        Assert.assertEquals("hmvwl", day8.rootName());
+        Assert.assertEquals(5752, day8.maximumValueAtEnd());
     }
 
     @Test
     public void exercise2() {
-//        Assert.assertEquals(1853, day8.unbalanced());
+        Assert.assertEquals(6366, day8.maximumValueDuringExecution());
     }
 }
