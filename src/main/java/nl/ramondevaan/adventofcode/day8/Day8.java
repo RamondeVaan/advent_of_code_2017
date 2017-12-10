@@ -43,7 +43,7 @@ public class Day8 {
 
     private final List<Instruction> instructions;
 
-    public Day8(List<Instruction> instructions) {
+    private Day8(List<Instruction> instructions) {
         this.instructions = instructions == null ?
                             Collections.emptyList() :
                             Collections.unmodifiableList(instructions);
