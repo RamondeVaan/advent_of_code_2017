@@ -1,6 +1,5 @@
 package nl.ramondevaan.adventofcode.day9;
 
-import nl.ramondevaan.adventofcode.day8.Day8;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,12 +25,11 @@ public class Day9Test {
 
     @Test
     public void exercise1() {
-        System.out.println(day9.groupScore());
-//        Assert.assertEquals(5752, day9.maximumValueAtEnd());
+        Assert.assertEquals(10820, day9.groupScore());
     }
 
     @Test
     public void exercise2() {
-//        Assert.assertEquals(6366, day9.maximumValueDuringExecution());
+        Assert.assertEquals(5547, day9.numberOfCharacters());
     }
 }

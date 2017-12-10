@@ -61,7 +61,7 @@ public class Program {
     }
 
     public static class Builder {
-        private List<ProgramInitializer> programs;
+        private final List<ProgramInitializer> programs;
 
         public Builder() {
             programs = new ArrayList<>();
