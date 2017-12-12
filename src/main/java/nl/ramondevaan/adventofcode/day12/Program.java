@@ -58,7 +58,7 @@ public class Program {
                     })
                     .distinct()
                     .map(Program::new)
-                    .collect(Collectors.toMap(p -> p.id, p -> p));
+                    .collect(Collectors.toMap(Program::getId, p -> p));
 
             initializers.forEach(i -> {
                 List<Program> peers = i
@@ -68,7 +68,7 @@ public class Program {
                         .filter(Objects::nonNull)
                         .collect(Collectors.toList());
 
-                Program p = programs.get(i.identifier);
+                Program p = programs.get(i.getIdentifier());
 
                 if(p != null) {
                     p.setPeers(peers);

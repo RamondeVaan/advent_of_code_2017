@@ -79,7 +79,7 @@ public class Day08 {
                 .stream()
                 .peek(i -> i.execute(datastore))
                 .mapToInt(i -> datastore.values().stream()
-                                        .mapToInt(r -> r.getValue())
+                                        .mapToInt(Register::getValue)
                                         .max().orElse(-1))
                 .max()
                 .orElse(-1);
