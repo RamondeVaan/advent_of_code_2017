@@ -19,17 +19,17 @@ public class Day12Test {
 
         day12 = Day12.create(
                 Paths.get(this.getClass().getResource(
-                        "/Day11.txt"
+                        "/Day12.txt"
                 ).toURI()));
     }
 
     @Test
     public void exercise1() {
-//        Assert.assertEquals(747, day12.distance());
+        Assert.assertEquals(115, day12.numInGroup0());
     }
 
     @Test
     public void exercise2() {
-//        Assert.assertEquals(1544, day12.furthestDistance());
+        Assert.assertEquals(221, day12.numberOfGroups());
     }
 }
