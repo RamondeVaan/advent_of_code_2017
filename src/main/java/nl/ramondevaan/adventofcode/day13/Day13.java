@@ -56,10 +56,16 @@ public class Day13 {
         Packet packet = new Packet(allLayers.get(0));
 
         PacketMover packetMover = (p, l) -> new Packet(l.get(l.indexOf(p.getLocation()) + 1));
-        ScannerMover scannerMover = s -> new Scanner(
-                s.getLocation(),
-                (s.getPosition() + 1) % s.getLocation().getRange()
-        );
+        ScannerMover scannerMover = (state, scanner) -> scanner.getLocation().getRange() <= 1 ?
+                scanner :
+                new Scanner(
+                        scanner.getLocation(),
+                        (scanner.getPosition() +
+                                ((state.getIteration() / 2 / (scanner.getLocation().getRange() - 1)) % 2 == 0 ?
+                                        1 :
+                                        -1
+                        )) % scanner.getLocation().getRange()
+                );
 
         List<State> states = new ArrayList<>();
         states.add(State.create(packet, allLayers, scanners));
@@ -84,7 +90,6 @@ public class Day13 {
                                 .mapToInt(c -> c.getLocation().getDepth() * c.getLocation().getRange())
                                 .sum()
                 )
-                .peek(System.out::println)
                 .sum();
 
         return severityCalculator.compute(states);

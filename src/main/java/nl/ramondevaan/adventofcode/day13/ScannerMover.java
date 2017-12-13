@@ -2,5 +2,5 @@ package nl.ramondevaan.adventofcode.day13;
 
 @FunctionalInterface
 public interface ScannerMover {
-    Scanner move(Scanner scanner);
+    Scanner move(State state, Scanner scanner);
 }

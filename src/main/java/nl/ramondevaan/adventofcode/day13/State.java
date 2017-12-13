@@ -12,18 +12,14 @@ public class State {
     private final Packet        packet;
     private final List<Layer>   layers;
     private final List<Scanner> scanners;
-
-    private State(Packet packet, List<Layer> layers, List<Scanner> scanners) {
-        this.packet = packet;
-        this.layers = layers;
-        this.scanners = scanners;
-    }
+    private final int           iteration;
 
     public State next(PacketMover mover) {
         return new State(
                 mover.move(this.packet, this.layers),
                 this.layers,
-                this.scanners
+                this.scanners,
+                getIteration() + 1
         );
     }
 
@@ -34,9 +30,10 @@ public class State {
                 Collections.unmodifiableList(
                     this.scanners
                             .stream()
-                            .map(mover::move)
+                            .map(s -> mover.move(this, s))
                             .collect(Collectors.toList())
-                )
+                ),
+                getIteration() + 1
         );
     }
 
@@ -47,9 +44,10 @@ public class State {
                 Collections.unmodifiableList(
                         this.scanners
                                 .stream()
-                                .map(scannerMover::move)
+                                .map(s -> scannerMover.move(this, s))
                                 .collect(Collectors.toList())
-                )
+                ),
+                getIteration() + 1
         );
     }
 
@@ -61,7 +59,8 @@ public class State {
                     Collections.unmodifiableList(new ArrayList<>(layers)),
             scanners == null ?
                     Collections.emptyList() :
-                    Collections.unmodifiableList(new ArrayList<>(scanners))
+                    Collections.unmodifiableList(new ArrayList<>(scanners)),
+            0
         );
 
     }
