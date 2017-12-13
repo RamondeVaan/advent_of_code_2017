@@ -25,13 +25,11 @@ public class Day13Test {
 
     @Test
     public void exercise1() {
-        System.out.println(day13.exercise1());
-//        Assert.assertEquals(115, day13.exercise1());
+        Assert.assertEquals(1624, day13.calculateSeverity());
     }
 
     @Test
     public void exercise2() {
-        System.out.println(day13.exercise2());
-//        Assert.assertEquals(221, day13.exercise2());
+        Assert.assertEquals(3923436, day13.findDelay());
     }
 }

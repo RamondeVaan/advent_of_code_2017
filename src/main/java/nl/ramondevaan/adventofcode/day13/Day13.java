@@ -26,7 +26,7 @@ public class Day13 {
                 Collections.unmodifiableList(layers);
     }
 
-    public int exercise1() {
+    public int calculateSeverity() {
         int maxDepth = layers
                 .stream()
                 .mapToInt(Layer::getDepth)
@@ -95,8 +95,24 @@ public class Day13 {
         return severityCalculator.compute(states);
     }
 
-    public int exercise2() {
-        return 0;
+    public int findDelay() {
+        List<Scanner> scanners = layers
+                .stream()
+                .map(l -> new Scanner(l, 0))
+                .collect(Collectors.toList());
+
+        IntStream stream = IntStream.iterate(0, i -> i + 1);
+
+        for(Scanner s : scanners) {
+            stream = stream.filter(i -> (i + s.getLocation().getDepth()) %
+                    (2 * (s.getLocation().getRange() - 1)) != 0);
+        }
+
+        return stream
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException(
+                        "Could not find a delay that adhered to the requirements")
+                );
     }
 
     public static Day13 create(Path file) throws IOException {
