@@ -15,7 +15,7 @@ public class Day06 {
     private Day06(List<Distribution> distributions) {
         this.distributions = distributions == null ?
                 Collections.emptyList() :
-                Collections.unmodifiableList(new ArrayList<>(distributions));
+                Collections.unmodifiableList(distributions);
     }
 
     public int numberOfSteps() {
