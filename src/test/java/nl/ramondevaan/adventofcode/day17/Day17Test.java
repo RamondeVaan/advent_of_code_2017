@@ -25,11 +25,11 @@ public class Day17Test {
 
     @Test
     public void exercise1() {
-//        Assert.assertEquals("ociedpjbmfnkhlga", day17.programOrder());
+        Assert.assertEquals(596, day17.valueAfter2017());
     }
 
     @Test
     public void exercise2() {
-//        Assert.assertEquals("gnflbkojhicpmead", day17.programOrderAfterBillion());
+        Assert.assertEquals(39051595, day17.valueAfter0());
     }
 }
