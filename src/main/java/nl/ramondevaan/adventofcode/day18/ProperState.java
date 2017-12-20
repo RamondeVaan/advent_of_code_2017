@@ -1,5 +1,8 @@
 package nl.ramondevaan.adventofcode.day18;
 
+import java.util.Collection;
+import java.util.Collections;
+
 public class ProperState extends State {
     private final StateIdentifier id;
     private final MessageQueue    messageQueue;
@@ -7,6 +10,11 @@ public class ProperState extends State {
     private       int             messageCount;
 
     public ProperState(StateIdentifier id, MessageQueue messageQueue) {
+        this(id, messageQueue, Collections.emptyList());
+    }
+
+    public ProperState(StateIdentifier id, MessageQueue messageQueue, Collection<Register> registers) {
+        super(registers);
         this.id = id;
         this.messageQueue = messageQueue;
         this.waiting = false;

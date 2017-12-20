@@ -2,9 +2,6 @@ package nl.ramondevaan.adventofcode.day18;
 
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Data
 public class Rcv implements Instruction {
     private final Value x;
@@ -18,14 +15,4 @@ public class Rcv implements Instruction {
         }
     }
 
-    @Override
-    public List<Identifier> getRegisterIds() {
-        List<Identifier> ret = new ArrayList<>();
-
-        if(x.hasIdentifier()) {
-            ret.add(x.getIdentifier());
-        }
-
-        return ret;
-    }
 }

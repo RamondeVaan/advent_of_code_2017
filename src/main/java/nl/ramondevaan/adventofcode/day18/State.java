@@ -1,66 +1,58 @@
 package nl.ramondevaan.adventofcode.day18;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
-import java.util.stream.IntStream;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class State {
-    private List<Register> registers;
+    private final Map<Identifier, Register> registers;
 
-    public List<Register> getRegisters() {
-        return registers;
+    public State() {
+        this(Collections.emptyList());
     }
 
-    public void setRegisters(Collection<Register> registers) {
-        this.registers = Collections.unmodifiableList(new ArrayList<>(registers));
+    public State(Collection<Register> registers) {
+        this.registers = new HashMap<>();
+        registers.forEach(r -> this.registers.put(r.getId(), r));
+    }
+
+    public Collection<Register> getRegisters() {
+        return Collections.unmodifiableCollection(registers.values());
     }
 
     public Register getRegister(Identifier registerId) {
-        return registers
-                .stream()
-                .filter(r -> r.getId().equals(registerId))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(String.format(
-                        "Could not find register with id \"%s\".",
-                        registerId.getId()
-                )));
+        if(!registers.containsKey(registerId)) {
+            Register r = new Register(registerId, 0);
+            registers.put(registerId, r);
+            return r;
+        }
+        return registers.get(registerId);
     }
 
     public void setRegister(Register register) {
-        int index = IntStream
-                .range(0, this.registers.size())
-                .filter(i -> this.registers.get(i).getId().equals(register.getId()))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(String.format(
-                        "Could not find register with id \"%s\".",
-                        register.getId().getId()
-                )));
-
-        List<Register> temp = new ArrayList<>(registers);
-        temp.set(index, register);
-        this.registers = Collections.unmodifiableList(temp);
+        registers.put(register.getId(), register);
     }
 
     public void computeRegister(Identifier registerId, RegisterFunction function) {
-        int index = IntStream
-                .range(0, this.registers.size())
-                .filter(i -> this.registers.get(i).getId().equals(registerId))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(String.format(
-                        "Could not find register with id \"%s\".",
-                        registerId.getId()
-                )));
+        if(!registers.containsKey(registerId)) {
+            registers.put(
+                    registerId,
+                    new Register(
+                            registerId,
+                            function.compute(0)
+                    )
+            );
+            return;
+        }
 
-        List<Register> registers = new ArrayList<>(this.registers);
-        registers.set(index, new Register(
+        registers.put(
                 registerId,
-                function.compute(
-                        registers.get(index).getValue()
+                new Register(
+                        registerId,
+                        function.compute(registers.get(registerId).getValue())
                 )
-        ));
-        this.registers = Collections.unmodifiableList(registers);
+        );
     }
 
     public abstract void snd(long val);

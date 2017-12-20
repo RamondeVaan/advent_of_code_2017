@@ -15,20 +15,8 @@ public class Day18 {
                 Collections.unmodifiableList(input);
     }
 
-    private Map<Identifier, Register> getRegisters() {
-        return input
-                .stream()
-                .flatMap(i -> i.getRegisterIds().stream())
-                .filter(Objects::nonNull)
-                .distinct()
-                .sorted(Comparator.comparing(Identifier::getId, String::compareTo))
-                .map(i -> new Register(i, 0))
-                .collect(Collectors.toMap(Register::getId, i -> i));
-    }
-
     public long recoveredFrequency() {
         SoundState state = new SoundState();
-        state.setRegisters(getRegisters().values());
 
         InstructionState instructionState = new InstructionState(input);
 
@@ -46,19 +34,18 @@ public class Day18 {
 
         ProperState p0 = new ProperState(
                 s0,
-                messageQueue
+                messageQueue,
+                Collections.singletonList(
+                        new Register(new Identifier("p"), 0)
+                )
         );
         ProperState p1 = new ProperState(
                 s1,
-                messageQueue
+                messageQueue,
+                Collections.singletonList(
+                        new Register(new Identifier("p"), 1)
+                )
         );
-        Map<Identifier, Register> g0 = getRegisters();
-        Map<Identifier, Register> g1 = getRegisters();
-        Identifier id = new Identifier("p");
-        g0.put(id, new Register(id, 0));
-        g1.put(id, new Register(id, 1));
-        p0.setRegisters(g0.values());
-        p1.setRegisters(g1.values());
 
         InstructionState i0 = new InstructionState(input);
         InstructionState i1 = new InstructionState(input);
