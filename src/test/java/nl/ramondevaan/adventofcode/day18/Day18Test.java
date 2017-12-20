@@ -25,11 +25,11 @@ public class Day18Test {
 
     @Test
     public void exercise1() {
-//        Assert.assertEquals(596, day18.valueAfter2017());
+        Assert.assertEquals(3423, day18.recoveredFrequency());
     }
 
     @Test
     public void exercise2() {
-//        Assert.assertEquals(39051595, day18.valueAfter0());
+        Assert.assertEquals(7493, day18.messagesSent());
     }
 }
