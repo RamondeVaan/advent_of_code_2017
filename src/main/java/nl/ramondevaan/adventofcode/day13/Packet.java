@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class Packet {
-    private final Layer location;
+  private final Layer location;
 }

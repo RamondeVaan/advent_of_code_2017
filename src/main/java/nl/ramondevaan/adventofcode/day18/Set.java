@@ -4,15 +4,15 @@ import lombok.Data;
 
 @Data
 public class Set implements Instruction {
-    private final Identifier registerId;
-    private final Value      value;
+  private final Identifier registerId;
+  private final Value value;
 
-    @Override
-    public void execute(State state, InstructionState instructionState) {
-        state.computeRegister(registerId, i -> value.hasIdentifier() ?
-                state.getRegister(value.getIdentifier()).getValue() :
-                value.getValueSafe()
-        );
-    }
+  @Override
+  public void execute(State state, InstructionState instructionState) {
+    state.computeRegister(registerId, i -> value.hasIdentifier() ?
+        state.getRegister(value.getIdentifier()).getValue() :
+        value.getValueSafe()
+    );
+  }
 
 }

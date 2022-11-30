@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class Program {
-    private final Identifier id;
+  private final Identifier id;
 }

@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class MemoryBank {
-    private final int numberOfBlocks;
+  private final int numberOfBlocks;
 }

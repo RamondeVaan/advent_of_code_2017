@@ -5,45 +5,45 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class Day03 {
-    private final int value;
+  private final int value;
 
-    private Day03(int value) {
-        this.value = value;
+  private Day03(int value) {
+    this.value = value;
+  }
+
+  public int spiralManhattanDistance() {
+    SpiralWalker s = new SpiralWalker();
+    final Coordinate start = new Coordinate(0, 0);
+
+    Coordinate c = s.next().getLeft();
+
+    for (int i = 0; i < value - 1 && s.hasNext(); i++) {
+      c = s.next().getLeft();
     }
 
-    public int spiralManhattanDistance() {
-        SpiralWalker     s     = new SpiralWalker();
-        final Coordinate start = new Coordinate(0, 0);
+    return Coordinate.manhattanDistance(start, c);
+  }
 
-        Coordinate c = s.next().getLeft();
+  public int stressTest() {
+    SpiralSumWalker s = new SpiralSumWalker();
 
-        for(int i = 0; i < value - 1 && s.hasNext(); i++) {
-            c = s.next().getLeft();
-        }
+    int v = 0;
 
-        return Coordinate.manhattanDistance(start, c);
+    while (s.hasNext() && v <= value) {
+      v = s.next().getRight();
     }
 
-    public int stressTest() {
-        SpiralSumWalker s = new SpiralSumWalker();
+    return v;
+  }
 
-        int v = 0;
+  public static Day03 create(Path file) throws IOException {
+    return new Day03(Files.readAllLines(file).stream()
+        .mapToInt(Integer::parseInt)
+        .findFirst()
+        .orElse(1));
+  }
 
-        while (s.hasNext() && v <= value) {
-            v = s.next().getRight();
-        }
-
-        return v;
-    }
-
-    public static Day03 create(Path file) throws IOException {
-        return new Day03(Files.lines(file)
-                              .mapToInt(Integer::parseInt)
-                              .findFirst()
-                              .orElse(1));
-    }
-
-    public static Day03 create(int value) {
-        return new Day03(value);
-    }
+  public static Day03 create(int value) {
+    return new Day03(value);
+  }
 }

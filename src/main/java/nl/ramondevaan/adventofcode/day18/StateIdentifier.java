@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class StateIdentifier {
-    private final int id;
+  private final int id;
 }

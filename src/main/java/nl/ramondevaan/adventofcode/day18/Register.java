@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class Register {
-    private final Identifier id;
-    private final long       value;
+  private final Identifier id;
+  private final long value;
 }

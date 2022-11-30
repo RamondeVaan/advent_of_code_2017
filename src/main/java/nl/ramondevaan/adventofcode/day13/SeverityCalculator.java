@@ -4,5 +4,5 @@ import java.util.List;
 
 @FunctionalInterface
 public interface SeverityCalculator {
-    int compute(List<State> states);
+  int compute(List<State> states);
 }

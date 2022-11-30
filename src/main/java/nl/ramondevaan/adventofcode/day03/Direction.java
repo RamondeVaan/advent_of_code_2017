@@ -1,42 +1,42 @@
 package nl.ramondevaan.adventofcode.day03;
 
 public enum Direction {
-    UP(0, 1) {
-        @Override
-        Direction nextDirectionCounterClockWise() {
-            return LEFT;
-        }
-    },
-    DOWN(0, -1) {
-        @Override
-        Direction nextDirectionCounterClockWise() {
-            return RIGHT;
-        }
-    },
-    RIGHT(1, 0) {
-        @Override
-        Direction nextDirectionCounterClockWise() {
-            return UP;
-        }
-    },
-    LEFT(-1, 0) {
-        @Override
-        Direction nextDirectionCounterClockWise() {
-            return DOWN;
-        }
-    };
-
-    private int xDif;
-    private int yDif;
-
-    Direction(int xDif, int yDif) {
-        this.xDif = xDif;
-        this.yDif = yDif;
+  UP(0, 1) {
+    @Override
+    Direction nextDirectionCounterClockWise() {
+      return LEFT;
     }
-
-    public Coordinate move(Coordinate c) {
-        return new Coordinate(c.x + xDif, c.y + yDif);
+  },
+  DOWN(0, -1) {
+    @Override
+    Direction nextDirectionCounterClockWise() {
+      return RIGHT;
     }
+  },
+  RIGHT(1, 0) {
+    @Override
+    Direction nextDirectionCounterClockWise() {
+      return UP;
+    }
+  },
+  LEFT(-1, 0) {
+    @Override
+    Direction nextDirectionCounterClockWise() {
+      return DOWN;
+    }
+  };
 
-    abstract Direction nextDirectionCounterClockWise();
+  private final int xDif;
+  private final int yDif;
+
+  Direction(int xDif, int yDif) {
+    this.xDif = xDif;
+    this.yDif = yDif;
+  }
+
+  public Coordinate move(Coordinate c) {
+    return new Coordinate(c.x + xDif, c.y + yDif);
+  }
+
+  abstract Direction nextDirectionCounterClockWise();
 }

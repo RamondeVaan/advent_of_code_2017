@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Layer {
-    private final LayerIdentifier id;
-    private final int depth;
-    private final int range;
+  private final LayerIdentifier id;
+  private final int depth;
+  private final int range;
 }

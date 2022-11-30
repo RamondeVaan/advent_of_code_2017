@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public abstract class Stream {
-    private Group parent;
+  private Group parent;
 }

@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class Identifier {
-    private final String id;
+  private final String id;
 }

@@ -7,29 +7,27 @@ import org.junit.Test;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 public class Day06Test {
-    private Day06 day06;
+  private Day06 day06;
 
-    @Before
-    public void setUp() throws URISyntaxException, IOException {
-        if(day06 != null) {
-            return;
-        }
-
-        day06 = Day06.create(
-                Paths.get(this.getClass().getResource(
-                        "/Day06.txt"
-                ).toURI()));
+  @Before
+  public void setUp() throws URISyntaxException, IOException {
+    if (day06 != null) {
+      return;
     }
 
-    @Test
-    public void exercise1() {
-        Assert.assertEquals(5042, day06.numberOfSteps());
-    }
+    day06 = Day06.create(Paths.get(Objects.requireNonNull(this.getClass().getResource("/Day06.txt")).toURI()));
+  }
 
-    @Test
-    public void exercise2() {
-        Assert.assertEquals(1086, day06.cycleSize());
-    }
+  @Test
+  public void exercise1() {
+    Assert.assertEquals(5042, day06.numberOfSteps());
+  }
+
+  @Test
+  public void exercise2() {
+    Assert.assertEquals(1086, day06.cycleSize());
+  }
 }

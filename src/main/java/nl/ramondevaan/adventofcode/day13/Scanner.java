@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class Scanner {
-    private final Layer location;
-    private final int   position;
+  private final Layer location;
+  private final int position;
 }

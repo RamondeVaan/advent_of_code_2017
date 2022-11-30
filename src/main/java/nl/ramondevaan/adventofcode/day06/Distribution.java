@@ -8,9 +8,9 @@ import java.util.List;
 
 @Data
 public class Distribution {
-    private final List<MemoryBank> memoryBanks;
+  private final List<MemoryBank> memoryBanks;
 
-    public Distribution(List<MemoryBank> memoryBanks) {
-        this.memoryBanks = Collections.unmodifiableList(new ArrayList<>(memoryBanks));
-    }
+  public Distribution(List<MemoryBank> memoryBanks) {
+    this.memoryBanks = Collections.unmodifiableList(new ArrayList<>(memoryBanks));
+  }
 }
